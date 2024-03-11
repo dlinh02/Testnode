@@ -20,9 +20,11 @@ app.get('/', (req, res) => {
 
 // Require loaiquyen routes
 const loaiquyenRoutes = require('./src/routes/loaiquyen.route')
+const taikhoanRoutes = require('./src/routes/taikhoan.route')
 
 // using as middleware
 app.use('/api/loaiquyen', loaiquyenRoutes)
+app.use('/api/taikhoan', taikhoanRoutes)
 
 // listen for requests
 app.listen(port, () => {
