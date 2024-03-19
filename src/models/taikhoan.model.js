@@ -11,6 +11,7 @@ var taikhoan = function taikhoan(taikhoan) {
     this.ten = taikhoan.ten;
     this.ngaysinh = taikhoan.ngaysinh;
     this.gioitinh = taikhoan.gioitinh;
+    this.trangthai = taikhoan.trangthai;
 }
 
 taikhoan.getAll = function (result) {
@@ -40,6 +41,17 @@ taikhoan.create = function (tk, result) {
 
 taikhoan.update = function (mataikhoan, taikhoan, result) {
     dbConn.query("UPDATE taikhoan SET sodienthoai=?,matkhau=?,email=?,diachi=?,hodem=?,ten=?,ngaysinh=?,gioitinh=? WHERE mataikhoan = ?", [taikhoan.sodienthoai, taikhoan.matkhau, taikhoan.email, taikhoan.diachi, taikhoan.hodem, taikhoan.ten, taikhoan.ngaysinh, taikhoan.gioitinh, mataikhoan], function (err, res) {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+        } else {
+            result(null, res);
+        }
+    });
+};
+
+taikhoan.delete = function (mataikhoan, result) {
+    dbConn.query("UPDATE taikhoan SET trangthai=0 WHERE mataikhoan = ?", [mataikhoan], function (err, res) {
         if (err) {
             console.log("error: ", err);
             result(null, err);

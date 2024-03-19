@@ -17,6 +17,7 @@ exports.create = function (req, res) {
     const tk = new taikhoan(req.body);
     //không thêm mataikhoan
     delete tk.mataikhoan;
+    delete tk.trangthai;
 
     // Kiểm tra dữ liệu có được cung cấp không
     if (!tk.sodienthoai || !tk.matkhau || !tk.email || !tk.diachi || !tk.hodem || !tk.ten || !tk.ngaysinh || !tk.gioitinh) {
@@ -43,5 +44,13 @@ exports.update = function (req, res) {
             res.json({ error: false, message: 'Cập nhật thành công!' });
         });
     }
+};
+
+exports.delete = function (req, res) {
+    taikhoan.delete(req.params.mataikhoan, function (err, taikhoan) {
+        if (err)
+            res.send(err);
+        res.json({ error: false, message: 'Xoá tài khoản thành công!' });
+    });
 };
 
