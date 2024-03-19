@@ -7,8 +7,8 @@ const taikhoanController =   require('../controllers/taikhoan.controller');
 
 // Get all taikhoans
 router.get('/', taikhoanController.getAll);
-router.post('/', taikhoanController.create);
-router.put('/:mataikhoan', taikhoanController.update);
+router.post('/register', taikhoanController.create);
+router.put('/update/:mataikhoan', taikhoanController.update);
 router.put('/delete/:mataikhoan', taikhoanController.delete);
 
 module.exports = router
