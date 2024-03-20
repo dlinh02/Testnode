@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 // Require loaiquyen routes
 const loaiquyenRoutes = require('./src/routes/loaiquyen.route')
 const taikhoanRoutes = require('./src/routes/taikhoan.route');
-const authenticateToken = require('./auth/authenticateToken');
+
 
 // using as middleware
 app.use('/api/loaiquyen', loaiquyenRoutes)
@@ -60,6 +60,23 @@ app.post('/login', (req, res) => {
 });
 
 
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+      return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  jwt.verify(token, secretKey, (err, user) => {
+      if (err) {
+          return res.status(403).json({ message: 'Token is not valid' });
+      }
+      req.user = user;
+      next();
+  });
+}
 
 // Route bảo vệ yêu cầu cần xác thực
 app.get('/protected', authenticateToken, (req, res) => {
