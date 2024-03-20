@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+// const jwt = require('jsonwebtoken');
 
 /// bỏ
 // create express app
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
   res.header('Cross-Origin-Resource-Policy', 'strict-origin-when-cross-origin');
   next();
 });
+
 
 // define a root route
 app.get('/', (req, res) => {

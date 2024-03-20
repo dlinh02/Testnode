@@ -26,6 +26,34 @@ taikhoan.getAll = function (result) {
     });
 };
 
+taikhoan.findOne = function (conditions, result) {
+    let sqlQuery = "SELECT * FROM taikhoan WHERE ";
+    let conditionClauses = [];
+    for (let key in conditions) {
+        if (conditions.hasOwnProperty(key)) {
+            conditionClauses.push(`${key} = ${dbConn.escape(conditions[key])}`);
+        }
+    }
+    if (conditionClauses.length === 0) {
+        result("No conditions provided", null);
+        return;
+    }
+    sqlQuery += conditionClauses.join(' OR ');
+
+    dbConn.query(sqlQuery, function (err, res) {
+        if (err) {
+            console.log("Error:", err);
+            result(err, null);
+        } else {
+            if (res.length > 0) {
+                result(null, res[0]);
+            } else {
+                result(null, null);
+            }
+        }
+    });
+};
+
 taikhoan.create = function (tk, result) {
     dbConn.query("INSERT INTO taikhoan set ?", tk, function (err, res) {
         if (err) {
