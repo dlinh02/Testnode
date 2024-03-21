@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 const loaiquyenRoutes = require('./src/routes/loaiquyen.route');
 const taikhoanRoutes = require('./src/routes/taikhoan.route');
 const authRoutes = require('./src/routes/auth.route');
-const authenticateToken = require('./middlewares/authenticateToken');
+// const authenticateToken = require('./middlewares/authenticateToken');
 
 // using as middleware
 app.use('/api/loaiquyen', loaiquyenRoutes)

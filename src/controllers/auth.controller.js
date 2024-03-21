@@ -23,7 +23,7 @@ exports.login = async function (req, res) {
             return res.status(200).json({success:false,  message: 'Sai mật khẩu!' });
         }
 
-        const token = jwt.sign({ id: tk[0].id, username: tk[0].sodienthoai }, 'truonglinh', { expiresIn: '1h' });
+        const token = jwt.sign({ id: tk[0].id, username: tk[0].sodienthoai }, process.env.SECRET_KEY, { expiresIn: '1h' });
         res.json({success:true,  token });
     } catch (error) {
         console.error('Error:', error);
@@ -31,3 +31,8 @@ exports.login = async function (req, res) {
     }
 };
 
+
+exports.logout = async (req, res) => {
+    res.clearCookie('token');
+    res.status(200).json({success:true}).end();
+};
