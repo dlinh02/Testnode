@@ -39,7 +39,7 @@ exports.create = function (req, res) {
                         res.status(500).send('Internal Server Error');
                     } else if (existingEmail) {
                         // Email đã tồn tại trong cơ sở dữ liệu
-                        res.status(400).send({ success: false, error: true, message: 'Email đã tồn tại.' });
+                        res.status(200).send({ success: false, error: true, message: 'Email đã tồn tại.' });
                     } else {
                         // Nếu không có số điện thoại hoặc email nào tồn tại trong cơ sở dữ liệu, tạo tài khoản mới
                         taikhoan.create(tk, function (err, insertedId) {
@@ -48,7 +48,7 @@ exports.create = function (req, res) {
                                 res.status(500).send('Internal Server Error');
                             } else {
                                 tk.mataikhoan = insertedId;
-                                res.status(201).send({ success: true, error: false, message: "Tài khoản đã được tạo thành công!", data: tk });
+                                res.status(200).send({ success: true, error: false, message: "Tài khoản đã được tạo thành công!", data: tk });
                             }
                         });
                     }
