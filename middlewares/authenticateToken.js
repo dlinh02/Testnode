@@ -6,7 +6,7 @@ function authenticateToken(req, res, next) {
         return res.status(401).json({ success: false, message: 'Token is required' });
     }
 
-    jwt.verify(token, 'truonglinh', (err, decoded) => {
+    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
             return res.status(403).json({ success: false, message: 'Invalid token' });
         }
