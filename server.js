@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
-
+const cors = require('cors');
 /// bỏ
 // create express app
 const app = express();
@@ -11,6 +10,12 @@ const port = 3003;
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors({
+  origin: '*',
+  allowedHeaders: ['Authorization'],
+  credentials: true // nếu bạn sử dụng cookies hoặc sessions và cần bao gồm credentials
+}));
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
