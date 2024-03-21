@@ -13,27 +13,6 @@ exports.getAll = function (req, res) {
     });
 };
 
-// exports.create = function (req, res) {
-//     const tk = new taikhoan(req.body);
-//     //không thêm mataikhoan
-//     delete tk.mataikhoan;
-//     delete tk.trangthai;
-
-//     // Kiểm tra dữ liệu có được cung cấp không
-//     if (!tk.sodienthoai || !tk.matkhau || !tk.email || !tk.diachi || !tk.hodem || !tk.ten || !tk.ngaysinh || !tk.gioitinh) {
-//         res.status(400).send({success: false, error: true, message: 'Vui lòng cung cấp đầy đủ thông tin!' });
-//     } else {
-//         taikhoan.create(tk, function (err, taikhoan) {
-//             if (err) {
-//                 console.log('Error in controller:', err);
-//                 res.status(500).send('Internal Server Error');
-//             } else {
-//                 res.status(201).send({success: true, error: false, message: "Tài khoản đã được tạo thành công!", data: taikhoan });
-//             }
-//         });
-//     }
-// };
-
 exports.create = function (req, res) {
     const tk = new taikhoan(req.body);
     // Không thêm mã tài khoản và trạng thái

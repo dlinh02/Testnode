@@ -89,4 +89,18 @@ taikhoan.delete = function (mataikhoan, result) {
     });
 };
 
+
+taikhoan.findByUsername = async function (username) {
+    try {
+        const res = await dbConn.query('SELECT * FROM taikhoan WHERE sodienthoai = ?', [username]);
+        if (res.length === 0) {
+            return null; // Trả về null nếu không tìm thấy tài khoản
+        } else {
+            return res[0];
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
 module.exports = taikhoan;
