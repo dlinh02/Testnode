@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 /// bỏ
 // create express app
@@ -10,7 +10,7 @@ const app = express();
 const port = 3003;
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
@@ -29,12 +29,15 @@ app.get('/', (req, res) => {
 });
 
 // Require loaiquyen routes
-const loaiquyenRoutes = require('./src/routes/loaiquyen.route')
-const taikhoanRoutes = require('./src/routes/taikhoan.route')
+const loaiquyenRoutes = require('./src/routes/loaiquyen.route');
+const taikhoanRoutes = require('./src/routes/taikhoan.route');
+const authRoutes = require('./src/routes/auth.route');
+const authenticateToken = require('./middlewares/authenticateToken');
 
 // using as middleware
 app.use('/api/loaiquyen', loaiquyenRoutes)
 app.use('/api/taikhoan', taikhoanRoutes)
+app.use('/api/auth', authRoutes)
 
 // listen for requests
 app.listen(port, () => {
