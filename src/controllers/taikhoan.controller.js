@@ -13,6 +13,18 @@ exports.getAll = function (req, res) {
     });
 };
 
+exports.getOne = function (req, res) {
+    taikhoan.getOne(req.params.mataikhoan, function (err, taikhoanData) {
+        if (err) {
+            console.log('Error in controller:', err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            console.log('Controller:', taikhoanData);
+            res.send(taikhoanData);
+        }
+    });
+};
+
 exports.create = function (req, res) {
     const tk = new taikhoan(req.body);
     // Không thêm mã tài khoản và trạng thái

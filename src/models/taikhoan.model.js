@@ -26,6 +26,18 @@ taikhoan.getAll = function (result) {
     });
 };
 
+taikhoan.getOne = function (mataikhoan, result) {
+    dbConn.query("SELECT * FROM taikhoan WHERE mataikhoan = ?", [mataikhoan], function (err, res) {
+        if (err) {
+            console.log("Error:", err);
+            result(err, null);
+        } else {
+            console.log(res);
+            result(null, res);
+        }
+    });
+};
+
 taikhoan.findOne = function (conditions, result) {
     let sqlQuery = "SELECT * FROM taikhoan WHERE ";
     let conditionClauses = [];
@@ -90,17 +102,17 @@ taikhoan.delete = function (mataikhoan, result) {
 };
 
 
-taikhoan.findByUsername = async function (username) {
-    try {
-        const res = await dbConn.query('SELECT * FROM taikhoan WHERE sodienthoai = ?', [username]);
-        if (res.length === 0) {
-            return null; // Trả về null nếu không tìm thấy tài khoản
-        } else {
-            return res[0];
-        }
-    } catch (error) {
-        throw error;
-    }
+taikhoan.findByUsername = function (sodienthoai) {
+    return new Promise((resolve, reject) => {
+        dbConn.query("SELECT * FROM taikhoan WHERE sodienthoai = ?", [sodienthoai], function (err, res) {
+            if (err) {
+                console.log("Error:", err);
+                reject(err);
+            } else {
+                console.log(res);
+                resolve(res);
+            }
+        });
+    });
 };
-
 module.exports = taikhoan;
