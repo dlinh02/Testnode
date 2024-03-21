@@ -42,7 +42,7 @@ exports.create = function (req, res) {
 
     // Kiểm tra dữ liệu có được cung cấp không
     if (!tk.sodienthoai || !tk.matkhau || !tk.email || !tk.diachi || !tk.hodem || !tk.ten || !tk.ngaysinh || !tk.gioitinh) {
-        res.status(400).send({ success: false, error: true, message: 'Vui lòng cung cấp đầy đủ thông tin!' });
+        res.status(200).send({ success: false, error: true, message: 'Vui lòng cung cấp đầy đủ thông tin!' });
     } else {
         // Kiểm tra số điện thoại và email đã tồn tại trong cơ sở dữ liệu chưa
         taikhoan.findOne({ sodienthoai: tk.sodienthoai }, function (err, existingUser) {
@@ -51,7 +51,7 @@ exports.create = function (req, res) {
                 res.status(500).send('Internal Server Error');
             } else if (existingUser) {
                 // Số điện thoại đã tồn tại trong cơ sở dữ liệu
-                res.status(400).send({ success: false, error: true, message: 'Số điện thoại đã tồn tại.' });
+                res.status(200).send({ success: false, error: true, message: 'Số điện thoại đã tồn tại.' });
             } else {
                 // Kiểm tra email đã tồn tại trong cơ sở dữ liệu chưa
                 taikhoan.findOne({ email: tk.email }, function (err, existingEmail) {
