@@ -39,12 +39,15 @@ app.get('/', (req, res) => {
 const loaiquyenRoutes = require('./src/routes/loaiquyen.route');
 const taikhoanRoutes = require('./src/routes/taikhoan.route');
 const authRoutes = require('./src/routes/auth.route');
+const danhbaRoutes = require('./src/routes/danhba.route');
+
 // const authenticateToken = require('./middlewares/authenticateToken');
 
 // using as middleware
-app.use('/api/loaiquyen', loaiquyenRoutes)
-app.use('/api/taikhoan', taikhoanRoutes)
-app.use('/api/auth', authRoutes)
+app.use('/api/loaiquyen', loaiquyenRoutes);
+app.use('/api/taikhoan', taikhoanRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/danhba', danhbaRoutes);
 
 // listen for requests
 app.listen(port, () => {
