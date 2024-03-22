@@ -47,3 +47,15 @@ exports.add = function(req, res){
         });
     }
 }
+
+exports.getAllContact = function (req, res) {
+    danhba.getAllContact(req.params.chudanhba, function (err, dsdanhba) {
+        if (err) {
+            console.log('Error in controller:', err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            console.log('Controller:', dsdanhba);
+            res.send(dsdanhba);
+        }
+    });
+}

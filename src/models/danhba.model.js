@@ -58,4 +58,16 @@ danhba.findOneContact = function (conditions, chudanhba, result) {
     });
 };
 
+danhba.getAllContact = function (chudanhba, result) {
+    dbConn.query("SELECT * FROM danhba WHERE chudanhba = ?", [chudanhba], function (err, res) {
+        if (err) {
+            console.log("Error:", err);
+            result(err, null);
+        } else {
+            console.log(res);
+            result(null, res);
+        }
+    });
+};
+
 module.exports = danhba;
