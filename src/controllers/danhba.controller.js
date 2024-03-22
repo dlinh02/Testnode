@@ -7,8 +7,6 @@ exports.add = function(req, res){
     const db = new danhba(req.body);
     delete db.madanhba;
 
-    db.chudanhba = req.user.id;
-
     // kiểm tra dữ liệu có cung cấp đủ hay không
     if(!db.ten || !db.sodienthoai){
         res.status(200).send({success: false, error: true, message: 'Vui lòng nhập đủ thông tin!'});
