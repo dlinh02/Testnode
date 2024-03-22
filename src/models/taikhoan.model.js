@@ -38,6 +38,18 @@ taikhoan.getOne = function (mataikhoan, result) {
     });
 };
 
+taikhoan.getIdBySDT = function (sodienthoai, result) {
+    dbConn.query("SELECT * FROM taikhoan WHERE sodienthoai = ?", [sodienthoai], function (err, res) {
+        if (err) {
+            console.log("Error:", err);
+            result(err, null);
+        } else {
+            console.log(res);
+            result(null, res);
+        }
+    });
+};
+
 taikhoan.findOne = function (conditions, result) {
     let sqlQuery = "SELECT * FROM taikhoan WHERE ";
     let conditionClauses = [];
