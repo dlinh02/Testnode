@@ -12,9 +12,9 @@ const port = 3003;
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors({
-  origin: '*',
-  allowedHeaders: ['Authorization'],
-  credentials: true // nếu bạn sử dụng cookies hoặc sessions và cần bao gồm credentials
+  origin: '*', // Cho phép truy cập từ tất cả các nguồn
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Các phương thức được cho phép
+  allowedHeaders: ['Content-Type', 'Authorization'], // Các tiêu đề được cho phép
 }));
 
 // parse requests of content-type - application/json
@@ -26,6 +26,8 @@ app.use((req, res, next) => {
   res.header('Cross-Origin-Resource-Policy', 'strict-origin-when-cross-origin');
   next();
 });
+
+
 
 
 // define a root route
