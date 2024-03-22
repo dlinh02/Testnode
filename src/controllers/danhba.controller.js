@@ -17,7 +17,7 @@ exports.add = function(req, res){
                 console.log('Error in controller:', err);
                 res.status(500).send('Internal Server Error');
             } else if (existingContact) { // Số điện thoại đã tồn tại trong danh bạ
-                res.status(200).send({ success: false, error: true, message: 'Số điện thoại đã tồn tại.' });
+                res.status(200).send({ success: false, error: true, message: 'Số điện thoại đã tồn tại!' });
             } else {
                 // get mã tài khoản by số điện thoại
                 taikhoan.getIdBySDT(db.sodienthoai, function (err, result) {
@@ -27,19 +27,25 @@ exports.add = function(req, res){
                     } else {
                         if (!result || result.length === 0 || !result[0].mataikhoan) {
                             // Nếu không có kết quả trả về từ câu truy vấn hoặc không có 'mataikhoan' trong kết quả
-                            res.status(200).send({ success: false, error: true, message: 'Không tìm thấy thông tin tài khoản.' });
+                            res.status(200).send({ success: false, error: true, message: 'Không tìm thấy thông tin tài khoản!' });
                         } else {
-                            // Nếu có 'mataikhoan' trong kết quả thì thêm vào danh bạ
                             db.manguoitrongdanhba = result[0].mataikhoan;
-                            console.log(db.manguoitrongdanhba);
-                            danhba.add(db, function (err, insertedId) {
-                                if (err) {
-                                    console.log('Error in controller:', err);
-                                    res.status(500).send('Internal Server Error');
-                                } else {
-                                    res.status(200).send({ success: true, error: false, message: "Danh bạ đã được thêm thành công!" });
-                                }
-                            });
+                            // Kiểm tra chủ danh bạ và người được thêm vào danh bạ
+                            if(db.manguoitrongdanhba == db.chudanhba){
+                                // Nếu trùng nhau
+                                res.status(200).send({ success: false, error: true, message: 'Bạn không thể thêm chính mình vào danh bạ!' });
+                            }else{
+                                // thêm vào danh bạ
+                                console.log(db.manguoitrongdanhba);
+                                danhba.add(db, function (err, insertedId) {
+                                    if (err) {
+                                        console.log('Error in controller:', err);
+                                        res.status(500).send('Internal Server Error');
+                                    } else {
+                                        res.status(200).send({ success: true, error: false, message: "Danh bạ đã được thêm thành công!" });
+                                    }
+                                });
+                            }
                         }
                     }
                 });
@@ -47,6 +53,10 @@ exports.add = function(req, res){
         });
     }
 }
+
+
+
+
 
 exports.getAllContact = function (req, res) {
     danhba.getAllContact(req.params.chudanhba, function (err, dsdanhba) {
