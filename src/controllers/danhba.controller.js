@@ -54,10 +54,6 @@ exports.add = function(req, res){
     }
 }
 
-
-
-
-
 exports.getAllContact = function (req, res) {
     danhba.getAllContact(req.params.chudanhba, function (err, dsdanhba) {
         if (err) {
@@ -69,3 +65,11 @@ exports.getAllContact = function (req, res) {
         }
     });
 }
+
+exports.deleteContact = function (req, res) {
+    danhba.deleteContact(req.params.madanhba, function (err, danhba) {
+        if (err)
+            res.send({success: false, err});
+        res.json({ success: true, error: false, message: 'Xoá danh bạ thành công!' });
+    });
+};

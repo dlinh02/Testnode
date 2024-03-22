@@ -70,4 +70,16 @@ danhba.getAllContact = function (chudanhba, result) {
     });
 };
 
+danhba.deleteContact = function (madanhba, result) {
+    dbConn.query("UPDATE danhba SET trangthai=0 WHERE madanhba = ?", [madanhba], function (err, res) {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+        } else {
+            result(null, res);
+        }
+    });
+};
+
+
 module.exports = danhba;
