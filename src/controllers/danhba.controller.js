@@ -54,6 +54,25 @@ exports.add = function(req, res){
     }
 }
 
+exports.findByUsernameOrPhone = function(req, res){
+    let search = req.params.id; // hoặc req.query.id tùy thuộc vào cách bạn gửi dữ liệu từ client
+
+    danhba.findByUsernameOrPhone(search, function (err, dba) {
+        if (err) {
+            console.log('Error in controller:', err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            if (!dba || dba.length === 0) { // Kiểm tra nếu không có kết quả
+                res.status(200).send({ success: false, error: true, message: 'Không tìm thấy thông tin tài khoản!' });
+            } else {
+                console.log('Controller:', dba);
+                res.send(dba);
+            }
+        }
+    });
+};
+
+
 exports.getAllContact = function (req, res) {
     danhba.getAllContact(req.params.chudanhba, function (err, dsdanhba) {
         if (err) {

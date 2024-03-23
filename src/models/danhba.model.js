@@ -58,6 +58,22 @@ danhba.findOneContact = function (conditions, chudanhba, result) {
     });
 };
 
+
+danhba.findByUsernameOrPhone = function (search, result) {
+    let sqlQuery = "SELECT * FROM danhba WHERE ten LIKE ? OR sodienthoai LIKE ?";
+    let values = [`%${search}%`, `%${search}%`];
+
+    dbConn.query(sqlQuery, values, function (err, res) {
+        if (err) {
+            console.log("Error:", err);
+            result(err, null);
+        } else {
+            result(null, res); // Trả về mảng kết quả
+        }
+    });
+};
+
+
 danhba.getAllContact = function (chudanhba, result) {
     dbConn.query("SELECT * FROM danhba WHERE chudanhba = ?", [chudanhba], function (err, res) {
         if (err) {
