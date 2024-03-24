@@ -5,7 +5,7 @@ const router = express.Router()
 const nhomController =   require('../controllers/nhom.controller');
 
 router.post('/createGroup', nhomController.createGroup);
-router.get('/getAllGroups/:matruongnhom', nhomController.getAllGroups);
+router.get('/getAllGroups/:id', nhomController.getAllGroups);
 
 
 module.exports = router;
