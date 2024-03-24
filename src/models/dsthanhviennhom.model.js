@@ -85,8 +85,8 @@ dsthanhviennhom.addMembersToGroup = (manhom, mataikhoan, callback) => {
     });
 };
 
-dsthanhviennhom.deleteMenber = function (mataikhoan, result) {
-    dbConn.query("UPDATE danhsachthanhviennhom SET trangthai=0 WHERE mataikhoan = ?", [mataikhoan], function (err, res) {
+dsthanhviennhom.deleteMember = function (manhom, mataikhoan, result) {
+    dbConn.query("UPDATE danhsachthanhviennhom SET trangthai=0 WHERE manhom = ? AND mataikhoan = ?", [manhom, mataikhoan], function (err, res) {
         if (err) {
             console.log("error: ", err);
             result(null, err);
