@@ -1,32 +1,3 @@
-// const nhom = require('../models/nhom.model');
-// const dsthanhviennhom = require('../models/dsthanhviennhom.model');
-
-// exports.createGroup = (req, res) => {
-//   const { tennhom, matruongnhom, mataikhoan } = req.body;
-//   delete req.body.manhom;
-
-//   nhom.createGroup(tennhom, matruongnhom, (error, manhom) => {
-//     if (error) {
-//       return res.status(500).json(error);
-//     }
-//     dsthanhviennhom.addMembersToGroup(manhom, mataikhoan, (error, result) => {
-//       if (error) {
-//         // Nếu có lỗi khi thêm thành viên, xóa nhóm đã tạo
-//         nhom.deleteGroup(manhom, (err, deleted) => {
-//           if (err) {
-//             return res.status(500).json(err);
-//           }
-//           return res.status(500).json(error);
-//         });
-//       } else {
-//         // Nếu không có lỗi khi thêm thành viên, trả về thông báo thành công
-//         res.status(200).json({ message: 'Tạo nhóm thành công!' });
-//       }
-//     });
-//   });
-// };
-
-
 const nhom = require('../models/nhom.model');
 const dsthanhviennhom = require('../models/dsthanhviennhom.model');
 
@@ -53,7 +24,7 @@ exports.createGroup = (req, res) => {
 };
 
 exports.getAllGroups = function (req, res) {
-  nhom.getAllGroups(req.params.matruongnhom, function (err, dsnhom) {
+  nhom.getAllGroups(req.params.id, function (err, dsnhom) {
       if (err) {
           console.log('Error in controller:', err);
           res.status(500).send('Internal Server Error');
