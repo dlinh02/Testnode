@@ -16,9 +16,12 @@ exports.addMembersToGroup = (req, res) => {
 
     dsthanhviennhom.addMembersToGroup(manhom, mataikhoan, (error, results) => {
         if (error) {
-            return res.status(500).json({success: false, error: 'Đã xảy ra lỗi khi thêm thành viên vào nhóm' });
+            if (error.code === 'EXISTING_MEMBERS') {
+                return res.status(400).json({ success: false, error: 'Thành viên đã tồn tại trong nhóm', duplicateIds: error.duplicateIds });
+            }
+            return res.status(500).json({ success: false, error: 'Đã xảy ra lỗi khi thêm thành viên vào nhóm' });
         }
-        res.status(200).json({success: true, message: 'Thành viên đã được thêm vào nhóm!' });
+        res.status(200).json({ success: true, message: 'Thành viên đã được thêm vào nhóm!' });
     });
 };
 
