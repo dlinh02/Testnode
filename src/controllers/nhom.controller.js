@@ -51,3 +51,15 @@ exports.createGroup = (req, res) => {
     });
   });
 };
+
+exports.getAllGroups = function (req, res) {
+  nhom.getAllGroups(req.params.matruongnhom, function (err, dsnhom) {
+      if (err) {
+          console.log('Error in controller:', err);
+          res.status(500).send('Internal Server Error');
+      } else {
+          console.log('Controller:', dsnhom);
+          res.send(dsnhom);
+      }
+  });
+}
