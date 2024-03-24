@@ -43,6 +43,7 @@ dsthanhviennhom.addMembers = (manhom, matruongnhom, mataikhoan, callback) => {
     const tuples = [];
     for (const item of mataikhoan) {
         tuples.push(`(${manhom}, ${item}, 1)`);
+        
     }
     tuples.push(`(${manhom}, ${matruongnhom}, 2)`)
     ;
