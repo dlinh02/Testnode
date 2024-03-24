@@ -52,4 +52,3 @@ dsthanhviennhom.deleteMember = function (manhom, mataikhoan, result) {
 };
 
 module.exports = dsthanhviennhom;
-
