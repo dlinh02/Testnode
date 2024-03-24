@@ -85,5 +85,16 @@ dsthanhviennhom.addMembersToGroup = (manhom, mataikhoan, callback) => {
     });
 };
 
+dsthanhviennhom.deleteMenber = function (mataikhoan, result) {
+    dbConn.query("UPDATE danhsachthanhviennhom SET trangthai=0 WHERE mataikhoan = ?", [mataikhoan], function (err, res) {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+        } else {
+            result(null, res);
+        }
+    });
+};
+
 module.exports = dsthanhviennhom;
 

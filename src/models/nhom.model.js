@@ -57,4 +57,15 @@ nhom.deleteGroup = (manhom, callback) => {
     });
 };
 
+nhom.getAllGroups = function (matruongnhom, result) {
+    dbConn.query("SELECT * FROM nhom WHERE matruongnhom = ?", [matruongnhom], function (err, res) {
+        if (err) {
+            console.log("Error:", err);
+            result(err, null);
+        } else {
+            console.log(res);
+            result(null, res);
+        }
+    });
+};
 module.exports = nhom;
