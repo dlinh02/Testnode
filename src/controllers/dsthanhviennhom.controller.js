@@ -21,3 +21,11 @@ exports.addMembersToGroup = (req, res) => {
         res.status(200).json({success: true, message: 'Thành viên đã được thêm vào nhóm!' });
     });
 };
+
+exports.deleteMember = function (req, res) {
+    dsthanhviennhom.deleteMember( req.params.manhom, req.params.mataikhoan, function (err, thanhvien) {
+        if (err)
+            res.send({success: false, err});
+        res.json({ success: true, error: false, message: 'Xoá thành viên thành công!' });
+    });
+};
