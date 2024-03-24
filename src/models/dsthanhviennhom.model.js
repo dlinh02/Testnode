@@ -66,4 +66,21 @@ dsthanhviennhom.deleteMember = function (manhom, mataikhoan, result) {
     });
 };
 
+
+dsthanhviennhom.getAllMembersInGroup = function (manhom, result) {
+    dbConn.query(`SELECT n.manhom, tk.mataikhoan, CONCAT(tk.hodem, ' ', tk.ten) AS ten, tk.sodienthoai, ds.maloaiquyen, lq.tenloaiquyen 
+                FROM nhom n JOIN danhsachthanhviennhom ds ON n.manhom = ds.manhom 
+                JOIN loaiquyen lq ON lq.maloaiquyen = ds.maloaiquyen
+                JOIN taikhoan tk ON tk.mataikhoan = ds.mataikhoan 
+                WHERE n.manhom = ${manhom}`,
+        function (err, res) {
+            if (err) {
+                console.log("Error:", err);
+                result(err, null);
+            } else {
+                console.log(res);
+                result(null, res);
+            }
+        });
+};
 module.exports = dsthanhviennhom;

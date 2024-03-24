@@ -32,3 +32,15 @@ exports.deleteMember = function (req, res) {
         res.json({ success: true, error: false, message: 'Xoá thành viên thành công!' });
     });
 };
+
+exports.getAllMembersInGroup = function (req, res) {
+    dsthanhviennhom.getAllMembersInGroup(req.params.manhom, function (err, dsthanhvien) {
+        if (err) {
+            console.log('Error in controller:', err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            console.log('Controller:', dsthanhvien);
+            res.send(dsthanhvien);
+        }
+    });
+};
