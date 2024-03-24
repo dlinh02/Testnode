@@ -43,10 +43,8 @@ dsthanhviennhom.addMembers = (manhom, matruongnhom, mataikhoan, callback) => {
     const tuples = [];
     for (const item of mataikhoan) {
         tuples.push(`(${manhom}, ${item}, 1)`);
-        
     }
-    tuples.push(`(${manhom}, ${matruongnhom}, 2)`)
-    ;
+    tuples.push(`(${manhom}, ${matruongnhom}, 2)`);
 
     // Thực hiện truy vấn để thêm thành viên vào nhóm
     dbConn.query(`INSERT INTO danhsachthanhviennhom (manhom, mataikhoan, maloaiquyen) VALUES ${tuples.join(', ')}`, (error, results) => {
