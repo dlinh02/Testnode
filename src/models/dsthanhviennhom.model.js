@@ -32,31 +32,23 @@
 'use strict';
 var dbConn = require('../../config/db.config');
 
-var dsthanhviennhom = function dsthanhviennhom(dsthanhviennhom){
+var dsthanhviennhom = function dsthanhviennhom(dsthanhviennhom) {
     this.manhom = dsthanhviennhom.manhom;
     this.mataikhoan = dsthanhviennhom.mataikhoan;
     this.maloaiquyen = dsthanhviennhom.maloaiquyen;
 }
 
 dsthanhviennhom.addMembers = (manhom, matruongnhom, mataikhoan, callback) => {
-    // Parse chuỗi JSON thành mảng
-    let parsedMataikhoan = JSON.parse(mataikhoan);
 
-    // Tạo một mảng các giá trị cho trưởng nhóm và các thành viên
-    const values = [];
-
-    // Thêm mã trưởng nhóm vào mảng values với loại quyền là 2
-    values.push([manhom, matruongnhom, 2]);
-
-    // Thêm các thành viên vào mảng values với loại quyền là 1
-    if(Array.isArray(parsedMataikhoan)){
-        for(let i = 0; i < parsedMataikhoan.length; i++){
-            values.push([manhom, parsedMataikhoan[i], 1]);
-        }
+    const tuples = [];
+    for (const item of mataikhoan) {
+        tuples.push(`(${manhom}, ${item}, 1)`);
     }
+    tuples.push(`(${manhom}, ${matruongnhom}, 2)`)
+    ;
 
     // Thực hiện truy vấn để thêm thành viên vào nhóm
-    dbConn.query('INSERT INTO danhsachthanhviennhom (manhom, mataikhoan, maloaiquyen) VALUES ?', [values], (error, results) => {
+    dbConn.query(`INSERT INTO danhsachthanhviennhom (manhom, mataikhoan, maloaiquyen) VALUES ${tuples.join(', ')}`, (error, results) => {
         if (error) {
             // return callback({ error: 'Đã xảy ra lỗi khi thêm thành viên vào nhóm' }, null);
             return callback(error, null);
