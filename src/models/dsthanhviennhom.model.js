@@ -1,34 +1,3 @@
-// 'use strict';
-// var dbConn = require('../../config/db.config');
-
-// var dsthanhviennhom = function dsthanhviennhom(dsthanhviennhom){
-//     this.manhom = dsthanhviennhom.manhom;
-//     this.mataikhoan = dsthanhviennhom.mataikhoan;
-//     this.maloaiquyen = dsthanhviennhom.maloaiquyen;
-// }
-
-// dsthanhviennhom.addMembersToGroup = (manhom, mataikhoan, callback) => {
-//     // Parse chuỗi JSON thành mảng
-//     const parsedMataikhoan = JSON.parse(mataikhoan);
-
-//     // Kiểm tra xem parsedMataikhoan có phải là một mảng không
-//     if (!Array.isArray(parsedMataikhoan)) {
-//         return callback({ error: 'Dữ liệu không hợp lệ' }, null);
-//     }
-
-//     // Sử dụng parsedMataikhoan trong các bước tiếp theo
-//     const values = parsedMataikhoan.map(matk => [manhom, matk, 1]); // Gán mặc định maloaiquyen = 1 nếu không có dữ liệu khác
-
-//     dbConn.query('INSERT INTO danhsachthanhviennhom (manhom, mataikhoan, maloaiquyen) VALUES ?', [values], (error, results) => {
-//         if (error) {
-//             return callback({ error: 'Đã xảy ra lỗi khi thêm thành viên vào nhóm' }, null);
-//         }
-//         callback(null, { message: 'Các thành viên đã được thêm vào nhóm' });
-//     });
-// };
-
-// module.exports = dsthanhviennhom;
-
 'use strict';
 var dbConn = require('../../config/db.config');
 
@@ -58,17 +27,12 @@ dsthanhviennhom.addMembers = (manhom, matruongnhom, mataikhoan, callback) => {
 };
 
 dsthanhviennhom.addMembersToGroup = (manhom, mataikhoan, callback) => {
-    const parsedMataikhoan = JSON.parse(mataikhoan);
-
-    // Kiểm tra xem parsedMataikhoan có phải là một mảng không
-    if (!Array.isArray(parsedMataikhoan)) {
-        return callback({ error: 'Dữ liệu không hợp lệ' });
+    const tuples = [];
+    for (const item of mataikhoan) {
+        tuples.push(`(${manhom}, ${item}, 1)`);
     }
 
-    // Sử dụng parsedMataikhoan trong các bước tiếp theo
-    const values = parsedMataikhoan.map(matk => [manhom, matk, 1]); // Gán mặc định maloaiquyen = 1 nếu không có dữ liệu khác
-
-    dbConn.query('INSERT INTO danhsachthanhviennhom (manhom, mataikhoan, maloaiquyen) VALUES ?', [values], (error, results) => {
+    dbConn.query(`INSERT INTO danhsachthanhviennhom (manhom, mataikhoan, maloaiquyen) VALUES ${tuples.join(', ')}`, (error, results) => {
         if (error) {
             return callback(error, null);
         }
