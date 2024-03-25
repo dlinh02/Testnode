@@ -15,7 +15,7 @@ var taikhoan = function taikhoan(taikhoan) {
 }
 
 taikhoan.getAll = function (result) {
-    dbConn.query("SELECT * FROM taikhoan", function (err, res) {
+    dbConn.query("SELECT * FROM taikhoan WHERE trangthai = 1", function (err, res) {
         if (err) {
             console.log("Error:", err);
             result(err, null);
