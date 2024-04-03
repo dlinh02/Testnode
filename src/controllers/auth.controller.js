@@ -23,7 +23,7 @@ exports.login = async function (req, res) {
             return res.status(200).json({success:false,  message: 'Sai mật khẩu!' });
         }
 
-        const token = jwt.sign({ id: tk[0].mataikhoan, username: tk[0].sodienthoai }, process.env.SECRET_KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ id: tk[0].mataikhoan, username: tk[0].sodienthoai, password:tk[0].matkhau, email:tk[0].email, address:tk[0].diachi, fisrtname:tk[0].hodem, lastname:tk[0].ten, dob:tk[0].ngaysinh, gender:tk[0].gioitinh }, process.env.SECRET_KEY, { expiresIn: '1h' });
         res.json({success:true,  token });
     } catch (error) {
         console.error('Error:', error);
