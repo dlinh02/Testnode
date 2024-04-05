@@ -98,4 +98,15 @@ danhba.deleteContact = function (madanhba, result) {
 };
 
 
+danhba.updateAddContact = function (sodienthoai, ten, result) {
+    dbConn.query("UPDATE danhba SET ten = ?, trangthai=1 WHERE sodienthoai = ?", [ten, sodienthoai], function (err, res) {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+        } else {
+            result(null, res);
+        }
+    });
+};
+
 module.exports = danhba;

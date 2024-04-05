@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express();
 
 // Setup server port
-const port = 3003;
+const port = 3001;
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,8 +26,6 @@ app.use((req, res, next) => {
   res.header('Cross-Origin-Resource-Policy', 'strict-origin-when-cross-origin');
   next();
 });
-
-
 
 
 // define a root route
