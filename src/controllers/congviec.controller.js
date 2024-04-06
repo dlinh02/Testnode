@@ -26,3 +26,33 @@ exports.create = function(req, res) {
     }
 };
 
+exports.getListTasksReceived = function(req, res) {
+    var manguoinhan = req.body.manguoinhan;
+    var manguoigiaoviec = req.body.manguoigiaoviec;
+    var manhom = req.body.manhom;
+
+    congviec.getListTasksReceived(manguoinhan, manguoigiaoviec, manhom, function(err, ds) {
+        if (err) {
+            console.log(err);
+            res.send(err);
+        } else {
+            res.send(ds);
+        }
+    });
+};
+
+exports.getListAssignTask = function(req, res) {
+    var manguoinhan = req.body.manguoinhan;
+    var manguoigiaoviec = req.body.manguoigiaoviec;
+    var manhom = req.body.manhom;
+
+    congviec.getListAssignTask(manguoinhan, manguoigiaoviec, manhom, function(err, ds) {
+        if (err) {
+            console.log(err);
+            res.send(err);
+        } else {
+            res.send(ds);
+        }
+    });
+};
+
