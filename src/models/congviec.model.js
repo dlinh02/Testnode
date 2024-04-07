@@ -35,7 +35,7 @@ congviec.getListTasksReceived = function (manguoinhan, manguoigiaoviec, manhom, 
             query += ' AND manguoigiaoviec = ?';
             queryParams.push(manguoigiaoviec);
         }else{
-            query += ' AND manguoigiaoviec IS NULL';
+            // query += ' AND manguoigiaoviec IS NULL';
         }
     
         if (manhom !== null) {
