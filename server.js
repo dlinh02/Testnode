@@ -41,6 +41,7 @@ const danhbaRoutes = require('./src/routes/danhba.route');
 const nhomRoutes = require('./src/routes/nhom.route');
 const dsthanhviennhomRoutes = require('./src/routes/dsthanhviennhom.route');
 const congviecRoutes = require('./src/routes/congviec.route');
+const tinnhanRoutes = require('./src/routes/tinnhan.route');
 
 
 // const authenticateToken = require('./middlewares/authenticateToken');
@@ -53,6 +54,7 @@ app.use('/api/danhba', danhbaRoutes);
 app.use('/api/nhom', nhomRoutes);
 app.use('/api/dsthanhviennhom', dsthanhviennhomRoutes);
 app.use('/api/congviec', congviecRoutes);
+app.use('/api/tinnhan', tinnhanRoutes);
 
 
 // listen for requests
