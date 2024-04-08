@@ -46,7 +46,8 @@ congviec.getListTasksReceived = function (manguoinhan, manguoigiaoviec, manhom, 
         }
     }
 
-    dbConn.query(query, queryParams, (error, results) => {
+    var sql = query + ' ORDER BY DATEDIFF(ngaygiao, thoihan) DESC';
+    dbConn.query(sql, queryParams, (error, results) => {
         if (error) {
             return callback(error, null);
         }
@@ -79,7 +80,9 @@ congviec.getListAssignTask = function (manguoinhan, manguoigiaoviec, manhom, cal
         
     }
 
-    dbConn.query(query, queryParams, (error, results) => {
+    var sql = query + ' ORDER BY DATEDIFF(ngaygiao, thoihan) DESC';
+
+    dbConn.query(sql, queryParams, (error, results) => {
         if (error) {
             return callback(error, null);
         }
