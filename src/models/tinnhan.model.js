@@ -25,4 +25,17 @@ tinnhan.sendMessagePN = function(tn, result){
     });
 }
 
+tinnhan.getMessagePN = function(manguoigui, manguoinhan, result){
+    dbConn.query("SELECT * FROM tinnhan WHERE (manguoigui, manguoinhan) IN ((?, ?), (?, ?)) ORDER BY matinnhan", 
+    [manguoigui, manguoinhan, manguoinhan, manguoigui], function(err, res){
+        if (err) {
+            console.log("Error:", err);
+            result(err, null);
+        } else {
+            console.log(res);
+            result(null, res);
+        }
+    });
+}
+
 module.exports = tinnhan;

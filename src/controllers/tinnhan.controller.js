@@ -15,3 +15,18 @@ exports.sendMessagePN = function (req, res) {
         }
     });
 }
+
+exports.getMessagePN = function (req, res) {
+    var manguoigui = req.body.manguoigui;
+    var manguoinhan = req.body.manguoinhan;
+    
+    tinnhan.getMessagePN(manguoigui, manguoinhan, function (err, dstn) {
+        if (err) {
+            console.log('Error in controller:', err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            console.log('Controller:', dstn);
+            res.send(dstn);
+        }
+    });
+}
