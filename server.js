@@ -1,12 +1,20 @@
+// 
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-/// bỏ
-// create express app
-const app = express();
+const http = require('http');
+const socketIo = require('socket.io');
+const path = require('path');
 
-// Setup server port
-const port = 3003;
+const app = express();
+const server = http.createServer(app);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: "*", // Cho phép truy cập từ nguồn này
+    methods: ["GET", "POST"] // Các phương thức được phép
+  }
+});
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,6 +35,29 @@ app.use((req, res, next) => {
   next();
 });
 
+// Thêm dòng sau để chỉ định thư mục chứa các tài nguyên tĩnh (ví dụ: tệp HTML, CSS, JavaScript)
+app.use(express.static(path.join(__dirname, 'public')));
+
+io.on('connection', (socket) => {
+    console.log('New user connected');
+
+    let userId;
+    let roomId;
+
+    socket.on('setUserId', (receivedUserId) => {
+        userId = receivedUserId;
+        roomId = `room_${userId}`;
+        console.log(`User connected with userId: ${userId}`);
+        console.log(`RoomId for user ${userId}: ${roomId}`);
+        socket.join(roomId);
+    });
+
+    socket.on('sendMessage', (data) => {
+        const { senderId, receiverId, message } = data;
+        // Gửi tin nhắn đến roomId của người nhận
+        io.to(`room_${receiverId}`).emit('message', { senderId, receiverId, message });
+    });
+});
 
 // define a root route
 app.get('/', (req, res) => {
@@ -43,9 +74,6 @@ const dsthanhviennhomRoutes = require('./src/routes/dsthanhviennhom.route');
 const congviecRoutes = require('./src/routes/congviec.route');
 const tinnhanRoutes = require('./src/routes/tinnhan.route');
 
-
-// const authenticateToken = require('./middlewares/authenticateToken');
-
 // using as middleware
 app.use('/api/loaiquyen', loaiquyenRoutes);
 app.use('/api/taikhoan', taikhoanRoutes);
@@ -56,9 +84,8 @@ app.use('/api/dsthanhviennhom', dsthanhviennhomRoutes);
 app.use('/api/congviec', congviecRoutes);
 app.use('/api/tinnhan', tinnhanRoutes);
 
-
 // listen for requests
-app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+const PORT = process.env.PORT || 3003;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
-
