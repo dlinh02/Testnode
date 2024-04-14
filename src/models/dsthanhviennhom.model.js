@@ -72,7 +72,7 @@ dsthanhviennhom.getAllMembersInGroup = function (manhom, result) {
                 FROM nhom n JOIN danhsachthanhviennhom ds ON n.manhom = ds.manhom 
                 JOIN loaiquyen lq ON lq.maloaiquyen = ds.maloaiquyen
                 JOIN taikhoan tk ON tk.mataikhoan = ds.mataikhoan 
-                WHERE n.manhom = ${manhom}`,
+                WHERE n.manhom = ${manhom} ORDER BY lq.maloaiquyen DESC`,
         function (err, res) {
             if (err) {
                 console.log("Error:", err);
