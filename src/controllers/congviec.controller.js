@@ -56,3 +56,15 @@ exports.getListAssignTask = function(req, res) {
     });
 };
 
+exports.updateTask = function (req, res) {
+    if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        res.status(400).send({ error: true, message: 'Vui lòng cung cấp đầy đủ thông tin!' });
+    } else {
+        congviec.updateTask(req.params.macongviec, new congviec(req.body), function (err, cv) {
+            if (err)
+                res.send({success: false, err});
+            res.json({success: true, error: false, message: 'Cập nhật thành công!' });
+        });
+    }
+};
+
