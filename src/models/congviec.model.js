@@ -76,8 +76,6 @@ congviec.getListAssignTask = function (manguoinhan, manguoigiaoviec, manhom, cal
         }else{
             // query += ' AND manguoinhan IS NULL';
         }
-    
-        
     }
 
     var sql = query + ' ORDER BY DATEDIFF(ngaygiao, thoihan) DESC';
@@ -87,6 +85,18 @@ congviec.getListAssignTask = function (manguoinhan, manguoigiaoviec, manhom, cal
             return callback(error, null);
         }
         callback(null, results);
+    });
+};
+
+
+congviec.updateTask = function (macongviec, cv, result) {
+    dbConn.query("UPDATE congviec SET tencongviec=?,noidung=?,ngaygiao=?,thoihan=?,maloaitrangthaicongviec=? WHERE macongviec = ?", [cv.tencongviec, cv.noidung, cv.ngaygiao, cv.thoihan, cv.maloaitrangthaicongviec, macongviec], function (err, res) {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+        } else {
+            result(null, res);
+        }
     });
 };
 
