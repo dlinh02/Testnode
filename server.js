@@ -54,8 +54,9 @@ io.on('connection', (socket) => {
 
     socket.on('sendMessage', (data) => {
         const { senderId, receiverId, message } = data;
+        console.log("đã gửi tin nhắn tới người nhận")
         // Gửi tin nhắn đến roomId của người nhận
-        io.to(`room_${receiverId}`).emit('message', { senderId, receiverId, message });
+        io.to(`room_${receiverId}`).emit('message', data);
     });
 });
 
