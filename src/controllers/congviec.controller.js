@@ -26,6 +26,18 @@ exports.create = function(req, res) {
     }
 };
 
+exports.getInfoTask = function(req, res){
+    congviec.getInfoTask(req.params.macongviec, function(err, data) {
+        if(err){
+            console.log('Error in controller:', err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            console.log('Controller:', data);
+            res.send(data);
+        }
+    });
+}
+
 exports.getListTasksReceived = function(req, res) {
     var manguoinhan = req.body.manguoinhan;
     var manguoigiaoviec = req.body.manguoigiaoviec;
@@ -67,4 +79,16 @@ exports.updateTask = function (req, res) {
         });
     }
 };
+
+exports.updateTaskStatus = function(req, res){
+    if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        res.status(400).send({ error: true, message: 'Vui lòng cung cấp đầy đủ thông tin!' });
+    } else {
+        congviec.updateTaskStatus(req.params.macongviec, req.body.maloaitrangthaicongviec, function (err, trangthai) {
+            if (err)
+                res.send({success: false, err});
+            res.json({success: true, error: false, message: 'Cập nhật thành công!' });
+        });
+    }
+}
 

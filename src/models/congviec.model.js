@@ -23,6 +23,18 @@ congviec.create = function (cv, callback) {
     });
 }
 
+congviec.getInfoTask = function (macongviec, result){
+    dbConn.query('SELECT * FROM congviec WHERE macongviec=?', macongviec, function (err, res) {
+        if (err) {
+            console.log("Error:", err);
+            result(err, null);
+        } else {
+            console.log(res);
+            result(null, res);
+        }
+    });
+}
+
 
 congviec.getListTasksReceived = function (manguoinhan, manguoigiaoviec, manhom, callback) { 
     var query = 'SELECT * FROM get_list_task_received_3 WHERE manguoinhan = ?';
@@ -100,5 +112,15 @@ congviec.updateTask = function (macongviec, cv, result) {
     });
 };
 
+congviec.updateTaskStatus = function(macongviec, maloaitrangthaicongviec, result){
+    dbConn.query(`UPDATE congviec SET maloaitrangthaicongviec=${maloaitrangthaicongviec} WHERE macongviec = ${macongviec}`, function (err, res) {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+        } else {
+            result(null, res);
+        }
+    });
+}
 
 module.exports = congviec;
