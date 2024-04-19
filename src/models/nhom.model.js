@@ -27,7 +27,7 @@ nhom.deleteGroup = (manhom, callback) => {
 };
 
 nhom.getAllGroups = function (id, result) {
-    dbConn.query("SELECT n.manhom, n.tennhom, n.matruongnhom, ds.mataikhoan FROM nhom n JOIN danhsachthanhviennhom ds ON n.manhom = ds.manhom WHERE ds.mataikhoan = ?", id, function (err, res) {
+    dbConn.query("SELECT * FROM get_all_group WHERE mataikhoan=?", id, function (err, res) {
         if (err) {
             console.log("Error:", err);
             result(err, null);
