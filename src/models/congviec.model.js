@@ -25,10 +25,10 @@ congviec.create = function (cv, callback) {
 
 
 congviec.getListTasksReceived = function (manguoinhan, manguoigiaoviec, manhom, callback) { 
-    var query = 'SELECT * FROM get_list_task_received_3 WHERE manguoinhan = ?';
+    var query = 'SELECT * FROM get_list_task_received WHERE manguoinhan = ?';
     var queryParams = [manguoinhan];
     if(manguoigiaoviec === null && manhom === null){
-        var query = 'SELECT * FROM get_list_task_received_3 WHERE manguoinhan = ?';
+        var query = 'SELECT * FROM get_list_task_received WHERE manguoinhan = ?';
         var queryParams = [manguoinhan];
     }else{
         if (manguoigiaoviec !== null) {
