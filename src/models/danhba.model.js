@@ -75,7 +75,7 @@ danhba.findByUsernameOrPhone = function (search, result) {
 
 
 danhba.getAllContact = function (chudanhba, result) {
-    dbConn.query("SELECT * FROM danhba WHERE chudanhba = ? AND trangthai = 1", [chudanhba], function (err, res) {
+    dbConn.query("SELECT * FROM get_all_contact WHERE chudanhba = ?", [chudanhba], function (err, res) {
         if (err) {
             console.log("Error:", err);
             result(err, null);
