@@ -78,7 +78,7 @@ congviec.getListAssignTask = function (manguoinhan, manguoigiaoviec, manhom, cal
         }
     }
 
-    var sql = query + ' ORDER BY DATEDIFF(ngaygiao, thoihan) DESC';
+    var sql = query + ' ';
 
     dbConn.query(sql, queryParams, (error, results) => {
         if (error) {
