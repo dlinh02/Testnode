@@ -1,4 +1,5 @@
 'use strict';
+const { query } = require('express');
 var dbConn = require('../../config/db.config');
 
 var danhba = function danhba(danhba){
@@ -100,6 +101,17 @@ danhba.deleteContact = function (madanhba, result) {
 
 danhba.updateAddContact = function (sodienthoai, ten, result) {
     dbConn.query("UPDATE danhba SET ten = ?, trangthai=1 WHERE sodienthoai = ?", [ten, sodienthoai], function (err, res) {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+        } else {
+            result(null, res);
+        }
+    });
+};
+
+danhba.updateContact = function (ten, chudanhba, sodienthoai, result) {
+    dbConn.query("UPDATE danhba SET ten = ?, trangthai=1 WHERE chudanhba = ? AND sodienthoai = ?", [ten, chudanhba, sodienthoai], function (err, res) {
         if (err) {
             console.log("error: ", err);
             result(null, err);
