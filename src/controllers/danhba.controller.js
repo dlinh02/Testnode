@@ -107,7 +107,7 @@ exports.deleteContact = function (req, res) {
 };
 
 exports.updateContact = function (req, res) {
-    danhba.updateContact(req.body.ten, req.body.chudanhba, req.body.sodienthoai, function (err, danhba) {
+    danhba.updateContact(req.body.ten, req.body.madanhba, function (err, danhba) {
         if (err)
             res.send({ success: false, err });
         res.json({ success: true, error: false, message: 'Cập nhật thành công!' });

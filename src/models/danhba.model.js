@@ -110,8 +110,8 @@ danhba.updateAddContact = function (sodienthoai, ten, result) {
     });
 };
 
-danhba.updateContact = function (ten, chudanhba, sodienthoai, result) {
-    dbConn.query("UPDATE danhba SET ten = ?, trangthai=1 WHERE chudanhba = ? AND sodienthoai = ?", [ten, chudanhba, sodienthoai], function (err, res) {
+danhba.updateContact = function (ten, madanhba, result) {
+    dbConn.query("UPDATE danhba SET ten = ?, trangthai=1 WHERE madanhba = ?", [ten, madanhba], function (err, res) {
         if (err) {
             console.log("error: ", err);
             result(null, err);
