@@ -80,4 +80,26 @@ tinnhan.getMessageGR = function(manhomnhan, result){
     });
 }
 
+
+tinnhan.getNotiMessage = function (manguoigui, manguoinhan, manhomnhan, callback) { 
+    var query = '';
+    var queryParams = [];
+    if(manguoinhan === null){
+        var query = 'UPDATE tinnhandoc SET soluongtin = 0, trangthai = 0 WHERE manguoigui =? AND manhomnhan =?';
+        var queryParams = [manguoigui, manhomnhan];
+    }else{
+        if (manhomnhan === null) {
+            var query = 'UPDATE tinnhandoc SET soluongtin = 0, trangthai = 0 WHERE manguoigui =? AND manguoinhan =?';
+            var queryParams = [manguoigui, manguoinhan];
+        }
+    }
+
+    dbConn.query(query, queryParams, (error, results) => {
+        if (error) {
+            return callback(error, null);
+        }
+        callback(null, results);
+    });
+};
+
 module.exports = tinnhan;

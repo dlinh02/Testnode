@@ -93,3 +93,18 @@ exports.getMessageGR = function (req, res) {
         }
     });
 }
+
+exports.getNotiMessage = function(req, res) {
+    var manguoigui = req.body.manguoigui;
+    var manguoinhan = req.body.manguoinhan;
+    var manhomnhan = req.body.manhomnhan;
+
+    tinnhan.getNotiMessage(manguoigui, manguoinhan, manhomnhan, function(err, ds) {
+        if (err) {
+            console.log(err);
+            res.status(500).json({ success: false, error:  true});
+        } else {
+            res.status(200).json({ success: true, error: false });
+        }
+    });
+};
