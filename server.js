@@ -74,6 +74,7 @@ const dsthanhviennhomRoutes = require('./src/routes/dsthanhviennhom.route');
 const congviecRoutes = require('./src/routes/congviec.route');
 const tinnhanRoutes = require('./src/routes/tinnhan.route');
 const thongbaoRoutes = require('./src/routes/thongbao.route');
+const baocaotiendoRoutes = require('./src/routes/thongtinbaocaotiendo.route');
 
 // using as middleware
 app.use('/api/loaiquyen', loaiquyenRoutes);
@@ -85,6 +86,7 @@ app.use('/api/dsthanhviennhom', dsthanhviennhomRoutes);
 app.use('/api/congviec', congviecRoutes);
 app.use('/api/tinnhan', tinnhanRoutes);
 app.use('/api/thongbao', thongbaoRoutes);
+app.use('/api/baocaotiendo', baocaotiendoRoutes);
 
 // listen for requests
 const PORT = process.env.PORT || 3003;
